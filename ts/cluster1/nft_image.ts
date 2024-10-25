@@ -1,4 +1,4 @@
-import wallet from "../wba-wallet.json"
+import wallet from "../wallet/Turbin3-wallet.json"
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults"
 import { createGenericFile, createSignerFromKeypair, signerIdentity } from "@metaplex-foundation/umi"
 import { irysUploader } from "@metaplex-foundation/umi-uploader-irys"
@@ -19,10 +19,10 @@ umi.use(signerIdentity(signer));
         //2. Convert image to generic file.
         //3. Upload image
 
-        // const image = ???
-
-        // const [myUri] = ??? 
-        // console.log("Your image URI: ", myUri);
+        const image = await readFile("/Users/serhio/Desktop/RUST/solana-starter/solana-starter/ts/assets/generug.png");
+        const genericFile = createGenericFile(image, 'NFT-rug', {contentType: 'image/png'});
+        const [myUri] = await umi.uploader.upload([genericFile]); 
+        console.log("Your image URI: ", myUri);
     }
     catch(error) {
         console.log("Oops.. Something went wrong", error);
